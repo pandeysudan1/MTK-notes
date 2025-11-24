@@ -1,0 +1,218 @@
+I start by telling myself what I actually want to learn:
+“I want to understand **why** the pendulum equation
+[
+\ddot{\theta} + \frac{g}{\ell}\sin\theta = 0
+]
+is true, not just memorize it.”
+
+Below is my self-learning journey in **I/We** style, using both the **force** view and the **torque** view of the same pendulum model. 
+
+---
+
+## 1. Setting up the mental picture
+
+I imagine a simple pendulum:
+
+* a point mass (bob) of mass (m)
+* a massless string or rod of length (\ell)
+* attached at the top, swinging under gravity
+* angle (\theta(t)) measured from the **vertical**
+
+I remind myself: the bob moves along a **circular arc**, so its motion is naturally described by (\theta(t)) rather than by (x(t),y(t)).
+
+We adopt a **tangential axis** along the direction of motion (the red axis in the figure from the text) and a **radial axis** pointing along the string.
+
+Gravity points straight down. I know that I must resolve gravity into components relative to the motion.
+
+---
+
+## 2. Force-based derivation – “I apply (F = ma) along the tangent”
+
+### 2.1. Free-body diagram in my head
+
+I imagine the forces on the bob:
+
+* Weight: (\vec{F}_g = m\vec{g}) downward
+* Tension: along the string toward the pivot
+
+I remember that **tension does no work in the tangential direction** (it’s radial), so for **speed changes along the arc**, only the tangential component of gravity matters.
+
+I ask myself: *What is the component of gravity along the tangential direction?*
+
+The angle between the string and the vertical is (\theta). The component of gravity **along the tangent** turns out to be:
+[
+F_{\text{tangential}} = -mg\sin\theta
+]
+The negative sign tells me that this component **opposes** the positive direction of (\theta). If the pendulum is displaced to the right (positive (\theta)), the tangential force points left.
+
+So along the tangential axis I write Newton’s second law:
+[
+F_{\text{tangential}} = ma_{\text{tangential}}
+\Rightarrow
+-mg\sin\theta = m a_{\text{tangential}}
+]
+
+I cancel (m) and obtain:
+[
+a_{\text{tangential}} = -g\sin\theta
+]
+
+### 2.2. Relating tangential acceleration to angular acceleration
+
+Now I connect the tangential motion to the angle (\theta).
+
+I recall the arc-length relationships for a circle of radius (\ell):
+
+* Arc length: (s = \ell\theta)
+* Tangential velocity: (v = \dot{s} = \ell\dot{\theta})
+* Tangential acceleration: (a = \ddot{s} = \ell\ddot{\theta})
+
+So I set
+[
+a_{\text{tangential}} = \ell\ddot{\theta}
+]
+
+From before, I had
+[
+a_{\text{tangential}} = -g\sin\theta
+]
+
+Equating them:
+[
+\ell\ddot{\theta} = -g\sin\theta
+]
+
+I rearrange:
+[
+\ddot{\theta} + \frac{g}{\ell}\sin\theta = 0
+]
+
+At this moment I pause and tell myself:
+“**I’ve derived the nonlinear pendulum equation purely from forces.**”
+
+---
+
+## 3. Torque-based derivation – “We use (\tau = r \times F) and angular momentum”
+
+Now I want to see the same equation but from the **rotational dynamics** viewpoint.
+
+I recall the key relations for rotation:
+
+* Torque: (\boldsymbol{\tau} = \mathbf{r} \times \mathbf{F})
+* Angular momentum: (\mathbf{L} = \mathbf{r} \times \mathbf{p})
+* Newton’s rotational form: (\boldsymbol{\tau} = \dfrac{d\mathbf{L}}{dt})
+
+### 3.1. Torque from gravity
+
+We consider the position vector (\mathbf{r}) from pivot to bob. Its magnitude is (\ell).
+
+The gravitational force is (\mathbf{F}_g = m\mathbf{g}). The **torque** due to gravity around the pivot has magnitude
+[
+|\tau| = r F \sin\theta = \ell \cdot mg \cdot \sin\theta
+]
+The direction of the torque is such that it tends to reduce (\theta) (restoring), so we include a negative sign:
+[
+|\tau| = -mg\ell\sin\theta
+]
+
+I interpret the minus carefully: when (\theta > 0), gravity produces a torque that tries to pull the pendulum back toward (\theta = 0).
+
+### 3.2. Angular momentum and its time derivative
+
+For a point mass (m) moving in a circle of radius (\ell):
+
+* The magnitude of angular momentum is
+  [
+  |L| = m r^2 \omega = m\ell^2\dot{\theta}
+  ]
+
+I take the time derivative:
+[
+\frac{d}{dt}|L| = m\ell^2 \ddot{\theta}
+]
+
+Now I apply (\tau = \dfrac{dL}{dt}) (magnitudes with sign):
+
+[
+-mg\ell\sin\theta = m\ell^2\ddot{\theta}
+]
+
+Again I cancel (m\ell) (assuming (\ell \neq 0)):
+
+[
+-g\sin\theta = \ell \ddot{\theta}
+]
+
+Rearranging:
+
+[
+\ddot{\theta} + \frac{g}{\ell}\sin\theta = 0
+]
+
+We end up with **exactly the same equation**. This gives me confidence that the model is consistent: both linear force analysis and rotational torque analysis lead to the same dynamics.
+
+---
+
+## 4. Reflection: what I/we have learned
+
+At this point I summarize to myself what I’ve really gained:
+
+1. **Physical picture**
+
+   * I see the pendulum as a mass constrained to move along a circular arc.
+   * Angle (\theta) is the natural coordinate.
+
+2. **Force approach**
+
+   * We project gravity along the **tangential direction**.
+   * We relate tangential motion to angular motion using (s = \ell\theta).
+   * We write (F = ma) in the tangential direction and obtain the nonlinear ODE.
+
+3. **Torque approach**
+
+   * We view the bob as a rotating point mass about the pivot.
+   * Gravity produces a torque (-mg\ell\sin\theta).
+   * Angular momentum is (L = m\ell^2\dot{\theta}).
+   * Using (\tau = dL/dt), we recover the same ODE.
+
+4. **The final model**
+   The equation
+   [
+   \ddot{\theta} + \frac{g}{\ell}\sin\theta = 0
+   ]
+   is a **second-order nonlinear ODE** describing the angular motion of a simple pendulum under gravity.
+
+---
+
+## 5. How I can continue self-learning from here
+
+If I want to go further, I can set myself the following “I/we” exercises:
+
+1. **Small-angle approximation**
+
+   * I assume (\sin\theta \approx \theta) for small (\theta).
+   * We show that the equation becomes
+     [
+     \ddot{\theta} + \frac{g}{\ell}\theta = 0
+     ]
+     which is the harmonic oscillator.
+
+2. **Energy viewpoint**
+
+   * I write kinetic energy (T = \tfrac12 m\ell^2\dot{\theta}^2).
+   * I write potential energy (V = mg\ell(1 - \cos\theta)).
+   * We verify that total energy is conserved along solutions of the ODE.
+
+3. **Numerical experiment**
+
+   * I pick values for (g, \ell), and initial conditions (\theta(0), \dot{\theta}(0)).
+   * We numerically integrate the ODE and plot (\theta(t)) to see the oscillations.
+
+By walking through these steps in “I/we” language, I keep myself actively engaged:
+
+* “I draw the free-body diagram.”
+* “We project gravity onto the tangent.”
+* “I check that the signs are consistent.”
+* “We verify that both force and torque viewpoints agree.”
+
+This way, the pendulum model becomes something I **understand** from multiple angles, not just an equation I memorize.
