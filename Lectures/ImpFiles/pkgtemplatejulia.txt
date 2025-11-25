@@ -1,7 +1,0 @@
-t = Template(; 
-    dir = "C:/Storage/Github",
-    user = "pandeysudan1",
-    authors = ["Madhusudhan Pandey"], 
-    julia_version = v"1.6", 
-    plugins = [Git(; manifest = true), GitHubActions(), Codecov(), License(;name="MIT")],
-)
