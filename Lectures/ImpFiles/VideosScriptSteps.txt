@@ -1,0 +1,137 @@
+Video - 01 - PackageInGithubLive
+---------------------------------
+Basic Steps:
+1. Goto github and create a package with .jl
+2. Goto VS code and run Julia. And, create same github package using PkgTemplates
+3. Goto Gitkraken and push the changes made out in the package
+
+
+# some needed code from PkgTemplates.jl
+
+using PkgTemplates
+tpl = Template(;
+    user = "pandeysudan1",
+    dir="C:/Storage/Github/Packages",
+    plugins=[
+        GitHubActions(; x86=true),
+        Codecov(),
+        Documenter{GitHubActions}(),
+    ],
+)
+tpl("OceanCirculationModeling.jl")
+
+# Steps in Gitkraken
+> Open the folder of the repo
+> Add remote
+> Push
+> Pull
+> Add first commit
+> End of video - 1
+
+Video - 02 - Documenter.jl for Documentation
+----------------------------------------
+1. Create the docs folder 
+inside the package folder as below:
+>docs/src/index.md
+>docs/make.jl
+
+2. Add Documenter and YourPackage 
+> Open OceanCirculationModeling foledr in VS code
+> Open a terminal from File menu bar in VS code
+> Run command "cd("docs")"
+> Run command "julia"
+> Type "]" and go in the package mode
+> You will see "(@v1.12) pkg>" i.e. the package mode in Julia with some version eg. @v1.12 for me
+> Run command "activate ."
+> Now you will see "(docs) pkg>"
+> Run command "add Documenter"
+> Run command "add OceanCirculationModeling"
+> You should get en error like this:
+(docs) pkg> add OceanCirculationModeling
+ERROR: The following package names could not be resolved:
+ * OceanCirculationModeling (not found in project, manifest or registry)
+> Run command "(docs) pkg> dev .."
+> Run command "(docs) pkg> st"
+> You will se the following output:
+(docs) pkg> st
+Status `C:\Storage\Github\Packages\OceanCirculationModeling\docs\Project.toml`
+  [e30172f5] Documenter v1.16.1
+  [9c16099f] OceanCirculationModeling v1.0.0-DEV `..`
+> Look that OceanCirculationModeling is in development mode!
+> I will also get Project.toml and Manifest.toml with package deps inside the docs folder
+> Let us push it in the github with a suitable commit.
+
+3. Build a document
+> Got to make.jl and copy following code:
+"using Documenter, OceanCirculationModeling
+makedocs(sitename = "Ocean Circulation Modeling Documentation")"
+and save the file.
+> Run the file either from julia by using include or directly Ctrl+Enter in
+each line of the code in the make.jl
+> Now you should see a docs/build folder where index.html will be the deployed html
+
+3. View the document in your local browser
+> Install LiveServer package in the Julia env. i.e "(@v1.12) pkg>"
+(Neither in your docs development mode: (docs) pkg>
+nor in your package development mode> (OceanCirculationModeling) pkg> )
+> If in (docs) pkg>, run command " using LiveServer; serve(dir="build") "
+else in (OceanCirculationModeling) pkg>, run command "using LiveServer; serve(dir="docs/build")"
+> Open localhost at give port for me: localhost/:8000
+
+4. Host the documentation live
+
+
+
+> In the Julia REPL to to the package mode by typing ]
+You will need to hit following command
+>(OceanCirculationModeling) pkg> add Documenter
+>(OceanCirculationModeling) julia> using Documenter, OceanCirculationModeling
+
+
+1. pkg> mode in docs/directory
+
+Video - 02 - Before Developing a Package
+---------------------------------
+Basic Steps for Refreshing
+1. Activate the package
+2. Load the Package
+3. Add a simple function in the package
+4. Test the function
+5. Create and run the tests
+6. Add dependencies
+7. Commit to github: Refereshed before developing
+
+End of video - 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
