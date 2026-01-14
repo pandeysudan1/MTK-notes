@@ -63,8 +63,7 @@ Status `C:\Storage\Github\Packages\OceanCirculationModeling\docs\Project.toml`
 
 3. Build a document
 > Got to make.jl and copy following code:
-"using Documenter, OceanCirculationModeling
-makedocs(sitename = "Ocean Circulation Modeling Documentation")"
+"act]
 and save the file.
 > Run the file either from julia by using include or directly Ctrl+Enter in
 each line of the code in the make.jl
@@ -76,9 +75,11 @@ each line of the code in the make.jl
 nor in your package development mode> (OceanCirculationModeling) pkg> )
 > If in (docs) pkg>, run command " using LiveServer; serve(dir="build") "
 else in (OceanCirculationModeling) pkg>, run command "using LiveServer; serve(dir="docs/build")"
-> Open localhost at give port for me: localhost/:8000
+> Open localhost at give port. For me: I hit localhost/:8000 in my browser
 
 4. Host the documentation live
+> GitHub Actions together with GitHub Pages for hosting the generated HTML files
+> 
 
 
 
