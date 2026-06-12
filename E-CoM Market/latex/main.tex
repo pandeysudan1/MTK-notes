@@ -1,122 +1,697 @@
+% =============================================================================
+%  Electrical Center-of-Mass Theory for Spatially-Aware Electricity Markets
+%  and Digital Twin Control of Net-Zero Power Systems
+%  Postdoctoral Research Proposal — 2–3 Year Program
+% =============================================================================
 \documentclass[12pt, a4paper]{article}
 
-% ── Packages ────────────────────────────────────────────────────────────────
+% ── Packages ──────────────────────────────────────────────────────────────────
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage[margin=2.5cm]{geometry}
-\usepackage{amsmath, amssymb}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
 \usepackage{graphicx}
-\usepackage{hyperref}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
 \usepackage{natbib}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{setspace}
-\usepackage{abstract}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{titlesec}
 
 \onehalfspacing
 
-% ── Meta-data ────────────────────────────────────────────────────────────────
-\title{\textbf{E-CoM Market: An Overview}\\[0.5em]
-       \large A Research Paper}
+% ── Listing style (pseudocode) ────────────────────────────────────────────────
+\lstdefinestyle{pseudo}{
+  backgroundcolor=\color{gray!8},
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bfseries\color{blue!70!black},
+  commentstyle=\itshape\color{green!50!black},
+  stringstyle=\color{orange!80!black},
+  breaklines=true,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{gray!40},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  xleftmargin=1.5em,
+  captionpos=b,
+  morekeywords={for, return, class, def, init, self, if, in, integrate}
+}
+\lstset{style=pseudo}
 
-\author{Author Name\\
-        \small Institution / Affiliation\\
-        \small \texttt{email@example.com}}
+% ── Theorem-like environments ─────────────────────────────────────────────────
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+% ── Coloured callout box ──────────────────────────────────────────────────────
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{hypothesis}[1][]{
+  colback=blue!5!white, colframe=blue!60!black,
+  fonttitle=\bfseries, title=Research Hypothesis, #1
+}
+
+% ── Section style ─────────────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\scshape}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+% ── Meta-data ─────────────────────────────────────────────────────────────────
+\title{%
+  \textbf{Electrical Center-of-Mass Theory}\\[0.4em]
+  \large for Spatially-Aware Electricity Markets\\
+  and Digital Twin Control of Net-Zero Power Systems\\[1em]
+  \normalsize\textit{Postdoctoral Research Proposal\quad|\quad2--3 Year Program}\\[0.2em]
+  \small Power Systems\,·\,Market Design\,·\,Control Theory\,·\,Digital Twins
+}
+
+\author{%
+  Author Name\\
+  \small Department of Electric Power Engineering\\
+  \small Institution / University\\
+  \small \texttt{email@institution.edu}
+}
 
 \date{\today}
 
-% ── Document ─────────────────────────────────────────────────────────────────
+% =============================================================================
 \begin{document}
+% =============================================================================
 
 \maketitle
+\thispagestyle{empty}
 
+% ── Abstract ─────────────────────────────────────────────────────────────────
 \begin{abstract}
-This paper presents an overview of the E-CoM Market framework.
-We describe the motivation, key concepts, and potential applications.
-A brief analysis of relevant prior work is included alongside
-directions for future research.
+\noindent
+Contemporary electricity markets trade \emph{quantities}---megawatts, megavolt-amperes
+reactive, and reserve capacities---while remaining entirely blind to
+\emph{where} those quantities sit inside the network.
+This proposal introduces the \textbf{Electrical Center-of-Mass (E-CoM)}: a novel
+scalar state variable that compresses the spatial distribution of any grid
+service into a single, physically interpretable indicator.
+Five service centers are defined---Energy, Reactive Power, Inertia, Short-Circuit
+Strength, and Flexibility---and a unified dynamics equation governs their
+real-time motion.
+Building on this theory, four new spatially-aware market mechanisms are proposed:
+the Reactive Center Market, the Inertia Center Market, the Voltage Stability
+Market (via the Center-of-Mass Stability Index, COMSI), and the Flexibility Center
+Market.
+An Extended Locational Marginal Price ($\mathrm{LMP}^*$) augments the classical
+three-part decomposition with a spatial-value component $\lambda_{\mathrm{CoM}}$.
+A real-time digital twin architecture tracks center movements, provides
+multi-horizon forecasts, and translates spatial imbalances into pre-dispatch
+signals for system operators.
+The 2--3 year research programme is structured across five work packages,
+culminating in a demonstration on the Nordic power system in collaboration with
+Statnett, SvK, and Fingrid.
 \end{abstract}
 
 \tableofcontents
 \newpage
 
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Introduction}
-\label{sec:introduction}
+% =============================================================================
+\part*{Part I\quad The Problem}
+\addcontentsline{toc}{part}{Part I: The Problem}
+% =============================================================================
 
-The E-CoM Market represents a novel approach to electronic commerce
-modeling. In this paper we outline the core ideas and provide a
-structured analysis of the market dynamics involved
-\citep{example2023}.
+\section{The State of Today's Electricity Markets}
+\label{sec:problem_markets}
 
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Background}
-\label{sec:background}
+Modern energy markets have evolved to trade an increasingly rich basket of
+products \citep{entsoe2022marketreport}:
 
-\subsection{Related Work}
-Prior research has explored various aspects of electronic commerce
-systems \citep{smith2020}. This work builds upon those foundations
-while introducing new perspectives on market interactions.
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Active Power (MW)} and \textbf{Energy (MWh)} via day-ahead and
+        intraday auctions.
+  \item \textbf{Reactive Power (MVAr)} through bilateral contracts or optional
+        ancillary-service tenders.
+  \item \textbf{Reserve Capacity} (FCR, aFRR, mFRR) for frequency regulation.
+  \item \textbf{Frequency services} including synthetic inertia and fast
+        frequency response.
+\end{itemize}
 
-\subsection{Motivation}
-The primary motivation for this work stems from the observed gap
-in existing models when applied to dynamic, real-time market
-environments.
+\noindent
+Despite this breadth, one critical dimension is universally absent from market
+pricing:
 
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Methodology}
-\label{sec:methodology}
+\begin{tcolorbox}[colback=red!5!white, colframe=red!60!black, fonttitle=\bfseries,
+                  title=The Fundamental Gap]
+\textit{Markets price quantity. They are blind to where that quantity sits in
+the network.}
+No current market product explicitly rewards a resource for its \textbf{spatial
+relationship} to system needs.
+\end{tcolorbox}
 
-The methodology follows a structured approach:
-\begin{enumerate}
-    \item Define the market model formally.
-    \item Identify key parameters and variables.
-    \item Apply the model to representative case studies.
-    \item Evaluate outcomes against established benchmarks.
+What markets currently \emph{ignore}:
+\begin{enumerate}[leftmargin=2em]
+  \item Spatial balance of resources relative to load.
+  \item Electrical distance between supply and demand.
+  \item Dynamic system strength distribution.
+  \item Inertia distribution across the network.
+  \item Voltage-support location relative to stressed buses.
 \end{enumerate}
 
-A summary of the core variables is given in Table~\ref{tab:variables}.
+\section{Why Location Matters: The Hidden Instability}
+\label{sec:why_location}
 
-\begin{table}[h!]
-    \centering
-    \caption{Core model variables}
-    \label{tab:variables}
-    \begin{tabular}{lll}
-        \toprule
-        \textbf{Symbol} & \textbf{Description} & \textbf{Units} \\
-        \midrule
-        $p$  & Market price        & USD \\
-        $q$  & Quantity traded     & units \\
-        $\lambda$ & Market liquidity & -- \\
-        \bottomrule
-    \end{tabular}
+The absence of spatial market signals creates real-world stability
+vulnerabilities that are growing as inverter-based renewables displace
+synchronous generators \citep{milano2018inertia}.
+
+\subsection{Illustrative Counter-example}
+
+Consider two power grids with \emph{identical} aggregate MW and MVAr totals.
+Grid A has its synchronous generation and reactive compensation distributed
+uniformly across the network.
+Grid B has its generation concentrated in one corner.
+Classical markets cannot distinguish between these two systems and will clear
+them at the same prices, yet their stability characteristics differ drastically:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Inertia concentrated in one corner} $\Rightarrow$ frequency
+        collapse in remote areas following a generation trip.
+  \item \textbf{Reactive power far from stressed buses} $\Rightarrow$ voltage
+        instability despite sufficient aggregate MVAr.
+  \item \textbf{Flexibility assets in the wrong location} $\Rightarrow$
+        congestion persists despite surplus aggregate capacity.
+\end{itemize}
+
+The spatial mismatch is invisible to current market mechanisms, so no economic
+signal drives resources toward the locations where stability is threatened.
+
+\section{The Central Research Hypothesis}
+\label{sec:hypothesis}
+
+\begin{hypothesis}
+Every power-system service possesses a \textbf{spatial center} whose movement
+governs stability, efficiency, and economic value.
+Designing markets around the alignment and dynamics of these centers will
+create economic incentives that naturally drive the grid toward secure, stable,
+and efficient operating states.
+\end{hypothesis}
+
+This hypothesis generates three concrete research contributions:
+
+\begin{description}[leftmargin=2em, style=nextline]
+  \item[New State Variable]
+        One number per service captures the spatial balance of the entire
+        network, reducing thousands of bus measurements to a physically
+        interpretable scalar.
+  \item[New Market Signal]
+        Payments reward \emph{where} a resource is located relative to system
+        needs, not only \emph{how much} it provides.
+  \item[New Control Layer]
+        A digital twin tracks center movements in real time and issues
+        location-aware pre-dispatch instructions to system operators.
+\end{description}
+
+% =============================================================================
+\part*{Part II\quad The Theory}
+\addcontentsline{toc}{part}{Part II: The Theory}
+% =============================================================================
+
+\section{Electrical Center-of-Mass: Formal Definition}
+\label{sec:ecom_def}
+
+\begin{definition}[Electrical Center-of-Mass]
+\label{def:ecom}
+For a power system with node set $\mathcal{N}$ and a grid service $s$, the
+\textbf{Electrical Center-of-Mass} at time $t$ is the service-weighted spatial
+centroid:
+\begin{equation}
+  X_s(t) \;=\; \frac{\displaystyle\sum_{i \in \mathcal{N}} w_i^{(s)}(t)\, x_i}
+                     {\displaystyle\sum_{i \in \mathcal{N}} w_i^{(s)}(t)}
+  \label{eq:ecom}
+\end{equation}
+where $x_i$ is the electrical location of node $i$ (e.g.\ a spectral graph
+embedding \citep{fiedler1973algebraic}), and $w_i^{(s)}(t)$ is the contribution
+of node $i$ to service $s$ at time $t$.
+\end{definition}
+
+\noindent
+The variable $X_s(t)$ is a scalar (or low-dimensional vector in 2-D embeddings)
+that summarises the entire spatial distribution of service $s$ across the grid
+at a single instant.
+
+\subsection*{Algorithm: Computing the E-CoM}
+
+\begin{lstlisting}[caption={Computing the Electrical Center-of-Mass},
+                   label={lst:ecom}]
+def CoM(service, nodes, time):
+    num   = 0
+    denom = 0
+    for node i in nodes:
+        w      = weight(service, i, time)   # service contribution at i
+        num   += w * location(i)             # electrical location
+        denom += w
+    return num / denom                       # X_s(t)
+\end{lstlisting}
+
+\section{Five Service Centers: A Unified Framework}
+\label{sec:five_centers}
+
+Applying Definition~\ref{def:ecom} to the five fundamental grid services
+yields a complete spatial picture of system state, as summarised in
+Table~\ref{tab:centers}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Service centers and their defining weights}
+  \label{tab:centers}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Grid Service} & \textbf{Weight $w_i^{(s)}$} & \textbf{Center Symbol}
+      & \textbf{Stability Relevance} \\
+    \midrule
+    Energy (Active Power) & $P_i$      & $X_E$ & Power balance, congestion \\
+    Reactive Power        & $Q_i$      & $X_Q$ & Voltage stability \\
+    Inertia               & $H_i$      & $X_H$ & Frequency dynamics \\
+    Short-Circuit Strength& $S_{sc,i}$ & $X_S$ & Fault ride-through, IBR stability \\
+    Flexibility (EV/BESS/DR) & $F_i$  & $X_F$ & Congestion relief, reserves \\
+    Storage Energy        & $E_i$      & $X_{St}$ & Multi-hour energy balance \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Results}
-\label{sec:results}
+Each center compresses thousands of simultaneous bus measurements into a single
+physically meaningful system-level indicator, making it tractable for both
+real-time operations and market settlement.
 
-Preliminary results indicate a strong correlation between market
-liquidity and price stability. Further experimental validation
-is ongoing.
+\section{Center-of-Mass Dynamics: A New State Equation}
+\label{sec:ecom_dynamics}
 
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Discussion}
-\label{sec:discussion}
+Differentiating Eq.~\eqref{eq:ecom} with respect to time yields the
+\textbf{CoM dynamics equation}:
 
-The findings suggest that the E-CoM Market model is well-suited
-for real-time applications. Limitations include data availability
-and the assumptions of the underlying theoretical framework.
+\begin{equation}
+  \dot{X}_s(t) \;=\;
+  \frac{\displaystyle\sum_{i} \dot{w}_i^{(s)}\, x_i}
+       {\displaystyle\sum_{i} w_i^{(s)}}
+  \;-\;
+  X_s(t)\,\frac{\displaystyle\sum_{i} \dot{w}_i^{(s)}}
+               {\displaystyle\sum_{i} w_i^{(s)}}
+  \label{eq:ecom_dynamics}
+\end{equation}
 
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Conclusion}
-\label{sec:conclusion}
+\begin{description}[leftmargin=2em]
+  \item[$\dot{X}_s > 0$] Center drifting in the positive spatial direction
+        (e.g.\ eastward on a geographic embedding).
+  \item[$\dot{X}_s < 0$] Center drifting in the negative spatial direction.
+  \item[$\dot{X}_s = 0$] System is spatially balanced for service $s$.
+\end{description}
 
-This paper introduced the E-CoM Market framework and outlined its
-key components and potential applications. Future work will focus
-on empirical validation and extension to multi-agent settings.
+Equation~\eqref{eq:ecom_dynamics} forms the state-space backbone of the
+digital twin layer (Section~\ref{sec:digital_twin}), enabling prediction of
+$X_s(t+h)$ hours ahead from measured weight trajectories.
 
-% ── Bibliography ─────────────────────────────────────────────────────────────
+% =============================================================================
+\part*{Part III\quad The Solution}
+\addcontentsline{toc}{part}{Part III: The Solution — Markets and Digital Twin}
+% =============================================================================
+
+\section{From Quantity-Only to Spatially-Aware Markets}
+\label{sec:market_principle}
+
+The core market-design innovation is to augment the standard
+\emph{price $\times$ quantity} payment with a \emph{spatial value factor}:
+
+\begin{align}
+  \text{Current:}\quad   & \text{Payment} = \text{Price} \times Q \\[4pt]
+  \text{Proposed:}\quad  & \text{Payment} = \text{Price} \times Q
+                            \times f\!\left(d\right)
+  \label{eq:spatial_payment}
+\end{align}
+
+where $d = \lvert X_{\text{service}} - X_{\text{need}} \rvert$ is the
+distance between the center of supply and the center of need.
+Resources \emph{closer} to where the system needs support receive a
+location premium; resources further away receive a discount.
+
+\section{Market 1: Reactive Center Market}
+\label{sec:reactive_market}
+
+Today, operators pay for reactive quantity only.
+A reactive source far from voltage-stressed buses earns the same payment as one
+co-located with the stress, despite providing far less voltage support.
+
+The Reactive Center Market rewards providers according to the shift they create
+in the reactive CoM toward the centre of reactive demand:
+
+\begin{equation}
+  \text{bid}(i) = \lambda_Q \cdot Q_i \cdot \text{bonus}\!\left(
+    \lVert X_Q^{+\Delta Q_i} - X_{\text{stress}} \rVert
+    - \lVert X_Q - X_{\text{stress}} \rVert
+  \right)
+\end{equation}
+
+\begin{lstlisting}[caption={Reactive Center Market dispatch},
+                   label={lst:reactive}]
+def ReactiveMarket(nodes, X_stress):
+    X_Q = CoM(Q, nodes)
+    for node i in nodes:
+        X_new  = CoM(Q + dQ_i, nodes)         # CoM after i's contribution
+        shift  = dist(X_new, X_stress) \
+               - dist(X_Q,   X_stress)         # negative = improvement
+        bid[i] = price_Q * Q_i * bonus(shift)  # premium for large shift
+    return dispatch(bid)
+\end{lstlisting}
+
+\textbf{Payment reward:} MVAr + $\Delta X_Q$ (Reactive CoM Shift toward stress).
+
+\section{Market 2: Inertia Center Market}
+\label{sec:inertia_market}
+
+The inertia center is:
+\begin{equation}
+  X_H = \frac{\sum_i H_i\, x_i}{\sum_i H_i}
+\end{equation}
+
+With the rapid displacement of synchronous generators by inverter-based
+resources, system operators must procure inertia both by \emph{quantity} and
+by \emph{location} \citep{milano2018inertia}.
+Hydropower plants providing synchronous inertia near electrically weak zones
+are worth significantly more than equivalent inertia delivered from a
+well-connected hub, yet today they earn the same capacity payment.
+
+\begin{lstlisting}[caption={Inertia Center Market dispatch},
+                   label={lst:inertia}]
+def InertiaMarket(nodes, X_need):
+    X_H = CoM(H, nodes)
+    for node i in nodes:
+        d       = dist(location(i), X_need)
+        sv      = spatialBonus(d)
+        payment[i] = price_H * H_i * sv
+    return dispatch(payment)
+\end{lstlisting}
+
+Under this mechanism, hydropower transitions from a pure energy source to a
+\textbf{spatial stability asset}, earning a premium commensurate with its
+inertia contribution at a critical network location.
+
+\section{Market 3: Voltage Stability Market via COMSI}
+\label{sec:voltage_market}
+
+A new system-wide voltage stability index is defined as:
+
+\begin{equation}
+  \mathrm{COMSI} = 1 - \frac{\lvert X_Q - X_L \rvert}{L}
+  \label{eq:comsi}
+\end{equation}
+
+where $X_Q$ is the center of reactive supply, $X_L$ is the center of reactive
+demand, and $L$ is the system characteristic length (normaliser).
+$\mathrm{COMSI} \to 1$ indicates a perfectly matched, spatially balanced system;
+$\mathrm{COMSI} \to 0$ indicates a critically mismatched system approaching
+voltage instability.
+
+\begin{lstlisting}[caption={Voltage Stability Market via COMSI},
+                   label={lst:comsi}]
+def VoltageStabilityMarket(nodes):
+    COMSI_base = computeCOMSI(nodes)
+    for node i in nodes:
+        COMSI_new = computeCOMSI(nodes + contribution(i))
+        delta     = COMSI_new - COMSI_base   # positive = improved stability
+        reward[i] = stabPrice * delta
+    return dispatch(reward)
+\end{lstlisting}
+
+Resources that improve COMSI earn a stability premium proportional to the
+improvement they deliver to the system as a whole.
+
+\section{Market 4: Flexibility Center Market}
+\label{sec:flex_market}
+
+The flexibility center:
+\begin{equation}
+  X_F = \frac{\sum_i F_i\, x_i}{\sum_i F_i}, \quad
+  F_i \in \{\text{EV}, \text{BESS}, \text{DR}\}
+\end{equation}
+
+Today, TSOs purchase flexibility by volume alone.
+A battery in a congested zone is purchased at the same price as one in an
+unconstrained zone, so congestion persists despite surplus aggregate capacity.
+
+\begin{lstlisting}[caption={Flexibility Center Market dispatch},
+                   label={lst:flex}]
+def FlexMarket(nodes, target):
+    X_F = CoM(F, nodes)
+    for node i in nodes:
+        shift     = CoMShift(F_i, location(i), X_F, target)
+        payment[i] = price_F * F_i * locationBonus(shift)
+    return dispatch(payment)
+\end{lstlisting}
+
+Flexibility assets near congested or voltage-stressed zones earn a location
+premium, incentivising storage deployment and demand-response enrolment in
+exactly the locations the network most needs them.
+
+\section{Extended Locational Marginal Pricing ($\mathrm{LMP}^*$)}
+\label{sec:lmp_star}
+
+Classical LMP decomposes nodal prices into three components
+\citep{schweppe1988spot}:
+\begin{equation}
+  \mathrm{LMP} = \lambda_E + \lambda_L + \lambda_C
+\end{equation}
+
+The proposed \emph{Extended LMP} augments this with a spatial-value component:
+\begin{equation}
+  \boxed{
+  \mathrm{LMP}^* = \lambda_E + \lambda_L + \lambda_C + \lambda_{\mathrm{CoM}}
+  }
+  \label{eq:lmp_star}
+\end{equation}
+where
+\begin{equation}
+  \lambda_{\mathrm{CoM}} = \sum_{s \in \mathcal{S}} \pi_s \cdot \Delta X_s(i)
+\end{equation}
+$\Delta X_s(i)$ is the CoM shift that node $i$ induces for service $s$, and
+$\pi_s$ is the shadow price of spatial balance for that service.
+
+\begin{lstlisting}[caption={Extended LMP* computation},
+                   label={lst:lmpstar}]
+def extendedLMP(node_i, grid):
+    lmp_E   = energyComp(node_i)
+    lmp_L   = lossComp(node_i)
+    lmp_C   = congestionComp(node_i)
+    lmp_CoM = 0
+    for service s in services:
+        dX       = CoMShift(s, node_i, grid)
+        lmp_CoM += price(s) * dX         # spatial value contribution
+    return lmp_E + lmp_L + lmp_C + lmp_CoM
+\end{lstlisting}
+
+\noindent
+$\lambda_{\mathrm{CoM}}$ makes a resource's full spatial contribution visible in
+its nodal price for the first time.
+
+\section{The Digital Twin: A Living Map of Grid Balance}
+\label{sec:digital_twin}
+
+\subsection{Motivation}
+
+A modern TSO control room displays 20,000+ buses and 50,000+ simultaneous
+measurements. No single indicator currently conveys spatial balance; instability
+is often detected only after it begins. The CoM digital twin replaces this data
+deluge with five meaningful time-varying scalars.
+
+\subsection{Architecture}
+
+\begin{lstlisting}[caption={Grid Digital Twin: real-time estimator and forecaster},
+                   label={lst:twin}]
+class GridDigitalTwin:
+
+    def init(self, grid_topology):
+        self.topology = grid_topology
+        self.centers  = {}    # { service : X_s(t) }
+        self.history  = []    # list of (t, centers) for forecasting
+
+    def update(self, measurements, t):
+        for s in [Energy, Q, H, F, Storage]:
+            weights          = extractWeights(measurements, s)
+            self.centers[s]  = CoM(weights, self.topology)
+        self.history.append((t, self.centers.copy()))
+
+    def forecast(self, horizon_hours):
+        model = fitDynamics(self.history)   # Kalman filter or ML model
+        return model.predict(horizon_hours)
+
+    def dispatchSignal(self, target_centers):
+        # returns location-aware pre-dispatch recommendations
+        gaps = { s: target_centers[s] - self.centers[s]
+                 for s in self.centers }
+        return optimiseDispatch(gaps, self.topology)
+\end{lstlisting}
+
+\subsection{Dashboard Outputs}
+
+The digital twin continuously publishes five center tracks to the operator
+dashboard:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Energy Center} $X_E$ --- moves with real-time dispatch.
+  \item \textbf{Reactive Center} $X_Q$ --- tracks voltage support location.
+  \item \textbf{Inertia Center} $X_H$ --- reveals inertia geography.
+  \item \textbf{Flexibility Center} $X_F$ --- tracks DR/BESS/EV deployment.
+  \item \textbf{Congestion Center} --- locates current bottlenecks.
+\end{enumerate}
+
+% =============================================================================
+\part*{Part IV\quad The Research Programme}
+\addcontentsline{toc}{part}{Part IV: The Research Programme}
+% =============================================================================
+
+\section{Work Packages}
+\label{sec:workpackages}
+
+The research programme is structured into five interlocking work packages
+spanning a 2--3 year postdoctoral appointment (Table~\ref{tab:wps}).
+
+\begin{table}[htbp]
+  \centering
+  \caption{Research work packages and key deliverables}
+  \label{tab:wps}
+  \begin{tabular}{p{0.06\linewidth} p{0.25\linewidth} p{0.55\linewidth}}
+    \toprule
+    \textbf{WP} & \textbf{Title} & \textbf{Key Deliverables} \\
+    \midrule
+    WP1 & Electrical CoM Theory
+      & Formal mathematical framework; graph-theoretic spatial
+        representation; stability proofs. \\[4pt]
+    WP2 & Dynamic Grid Digital Twin
+      & Real-time CoM estimator; multi-horizon forecaster;
+        operator dashboard prototype. \\[4pt]
+    WP3 & Center-of-Mass Markets
+      & Full market designs for energy, reactive, inertia, and
+        flexibility; $\mathrm{LMP}^*$ formulation; welfare analysis. \\[4pt]
+    WP4 & Nordic Demonstration
+      & Validation with Statnett / SvK / Fingrid datasets;
+        journal publications; policy briefs. \\[4pt]
+    WP5 & Hydropower as Spatial Stabiliser
+      & CoM shift quantification for hydro during disturbances;
+        spatial stabiliser premium calculation. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Timeline}
+
+\begin{description}[leftmargin=2em]
+  \item[Year 1 (WP1 + WP2)] Theory and digital twin development.
+  \item[Year 2 (WP3 + WP5)] Market design and hydropower analysis.
+  \item[Year 3 (WP4)] Nordic validation, publications, and policy engagement.
+\end{description}
+
+\section{WP5: Hydropower as a Spatial Stabiliser}
+\label{sec:hydropower}
+
+\subsection{Research Question}
+\textit{How does hydropower shift the energy, inertia, and reactive centers
+during disturbances and market operation, and what location-aware market premium
+does this imply?}
+
+\subsection{Strategic Importance of Hydropower}
+Hydropower is uniquely positioned as a spatial stabiliser:
+\begin{itemize}[leftmargin=2em]
+  \item Provides \emph{both} energy and synchronous inertia simultaneously.
+  \item Geographically distributed in mountainous, often electrically remote
+        regions (Norway, Sweden, Nepal, Albania).
+  \item Fast ramp rates $\Rightarrow$ strong CoM control authority.
+  \item Currently \emph{severely under-valued} in today's markets because spatial
+        contribution is not monetised.
+\end{itemize}
+
+\begin{lstlisting}[caption={Hydropower CoM shift analysis},
+                   label={lst:hydro}]
+def HydroCoMAnalysis(disturbance):
+    for t in timeline:
+        X_H  = CoM(H, nodes, t)            # inertia center
+        X_E  = CoM(P, nodes, t)            # energy center
+        X_Q  = CoM(Q, nodes, t)            # reactive center
+        log(t, X_H, X_E, X_Q)
+    COMSI_integral = integrate(COMSI(t), timeline)
+    return marketPremium(hydro, COMSI_integral)
+\end{lstlisting}
+
+The integral of COMSI over an event horizon provides a single number capturing
+the total voltage-stability contribution of each hydro plant, forming the basis
+for a location-aware capacity payment.
+
+\section{Toward a New Interdisciplinary Field: Spatial Power System Economics}
+\label{sec:field}
+
+This research programme sits at the intersection of several established
+disciplines, creating a new interdisciplinary field:
+
+\begin{center}
+\begin{tabular}{ccc}
+  Graph Theory & $+$ & Market Design \\
+  Control Theory & $+$ & Power System Dynamics \\
+  Optimisation Theory & $+$ & Machine Learning \\
+  Energy Economics & $+$ & Complex Systems \\
+  Digital Twins & $+$ & Hydropower Engineering \\
+  \multicolumn{3}{c}{$\Downarrow$} \\
+  \multicolumn{3}{c}{\textbf{Spatial Power System Economics}} \\
+\end{tabular}
+\end{center}
+
+% =============================================================================
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+% =============================================================================
+
+\begin{hypothesis}[title=The Central Scientific Question]
+Can future electricity markets be designed around the movement and alignment
+of electrical centers of mass, so that economic incentives naturally drive the
+grid toward secure, stable, and efficient operating states?
+\end{hypothesis}
+
+This proposal makes a case that the answer is \textbf{yes}, on three grounds:
+
+\begin{description}[leftmargin=2em]
+  \item[Novel] The E-CoM state variable does not appear in any existing power
+        systems framework or textbook. It opens a genuinely new analytical
+        direction.
+  \item[Timely] Net-zero grids are becoming spatially unbalanced \emph{right
+        now} as renewables displace synchronous generation.
+        The gap between market design and physical reality is widening with
+        every wind and solar installation.
+  \item[Impactful] The research will generate publications spanning power
+        systems, control theory, energy economics, and digital twin research,
+        as well as actionable policy recommendations for Nordic TSOs.
+\end{description}
+
+\subsection*{Summary: Problem $\to$ Theory $\to$ Solution}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Complete problem–theory–solution mapping}
+  \label{tab:summary}
+  \small
+  \begin{tabular}{p{0.28\linewidth} p{0.30\linewidth} p{0.30\linewidth}}
+    \toprule
+    \textbf{Problem} & \textbf{Theory} & \textbf{Solution} \\
+    \midrule
+    Markets ignore location & CoM state variable $X_s(t)$ & CoM location premium \\
+    No spatial stability index & COMSI mismatch metric & Voltage stability market \\
+    Inertia scarcity unlocated & Inertia center $X_H$ & Inertia center market \\
+    Flexibility in wrong places & Flexibility center $X_F$ & Flexibility center market \\
+    LMP misses spatial value & $\lambda_{\mathrm{CoM}}$ component & Extended $\mathrm{LMP}^*$ \\
+    Operators see 50k raw signals & CoM dynamics $\dot{X}_s$ & Digital twin dashboard \\
+    Hydro severely under-valued & CoM shift contribution & Spatial stabiliser premium \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% ── Bibliography ──────────────────────────────────────────────────────────────
 \bibliographystyle{plainnat}
 \bibliography{references}
 
