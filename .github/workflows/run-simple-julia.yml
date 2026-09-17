@@ -1,0 +1,23 @@
+name: Run simple Julia test
+
+on:
+  push:
+    paths:
+      - "simple_julia_test.jl"
+      - ".github/workflows/run-simple-julia.yml"
+  workflow_dispatch:
+
+jobs:
+  run-julia:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: '1'
+
+      - name: Run Julia file
+        run: julia simple_julia_test.jl
