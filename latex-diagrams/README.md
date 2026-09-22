@@ -4,22 +4,36 @@ Reusable publication-quality technical diagrams built with LaTeX and TikZ.
 
 ## Purpose
 
-This module is a small diagram laboratory for:
+This module is a compact diagram library for:
 
+- hydropower component chains
 - control-system block diagrams
-- hydropower plant schematics
-- signal-flow diagrams
-- power-system diagrams
-- mathematical model architecture figures
+- FCR prequalification workflows
+- SMIB and AGC architectures
+- power-system model figures
+- ModelingToolkit component/connector diagrams
 - figures for papers, reports and Beamer slides
+
+## Current catalogue
+
+| File | Purpose |
+|---|---|
+| `template_block_diagram.tex` | Generic closed-loop control template |
+| `hydropower_control.tex` | Governor-waterway-turbine-generator control loop |
+| `hydropower_waterway.tex` | Reservoir-intake-penstock-surge-tank-turbine-tailrace chain |
+| `smib_architecture.tex` | Hydropower single-machine infinite-bus architecture |
+| `fcr_prequalification.tex` | Frequency test to power-response evaluation workflow |
 
 ## Structure
 
 ```text
 latex-diagrams/
 ├── diagrams/
+│   ├── template_block_diagram.tex
 │   ├── hydropower_control.tex
-│   └── template_block_diagram.tex
+│   ├── hydropower_waterway.tex
+│   ├── smib_architecture.tex
+│   └── fcr_prequalification.tex
 ├── build/
 ├── Makefile
 └── README.md
@@ -39,7 +53,7 @@ Compiled PDFs are written to `latex-diagrams/build/`.
 Compile one figure:
 
 ```bash
-make FILE=diagrams/hydropower_control.tex one
+make FILE=diagrams/smib_architecture.tex one
 ```
 
 Clean generated files:
@@ -48,15 +62,24 @@ Clean generated files:
 make clean
 ```
 
-## Diagram convention
+## Diagram conventions
 
 1. Inputs enter from the left and outputs leave to the right.
-2. Dynamic components are rectangular blocks.
+2. Dynamic components use rectangular blocks.
 3. Summing junctions use circular nodes.
-4. Physical-energy paths and control-signal paths are kept visually distinct by geometry and labels rather than decorative styling.
+4. Physical and control paths are distinguished by topology and labels, not decorative styling.
 5. Symbols should match the equations used in the corresponding model.
-6. Each diagram should compile as a standalone PDF so it can be included directly in papers or Beamer slides.
+6. Every figure compiles as a standalone PDF for direct use in papers and Beamer.
+7. Hydropower diagrams should expose the physical sequence first, then control and measurement loops.
+8. FCR figures should separate test signal, controller, plant response and requirement evaluation.
 
-## Next diagrams
+## Planned additions
 
-Planned figures include reservoir-pipe-surge-tank-turbine-generator chains, governor/FCR loops, SMIB models, two-area AGC, and ModelingToolkit component/connector architecture.
+Next additions should include:
+
+- two-area AGC
+- turbine lookup-table architecture
+- ModelingToolkit connector/component graph
+- FCR-D activation/deactivation sequence
+- causal vs acausal modeling comparison
+- Nordic multi-machine frequency-response architecture
