@@ -8,21 +8,11 @@
 \begin{document}
 \begin{tikzpicture}
 \node[box] (c) {
-\textbf{Synchronous Generator (classical)}\\[1mm]
-States: $\omega,\delta$\\
-Parameters: $H,D,E,V,X,\omega_b$\\[1mm]
-Swing equation:
-\[
-2H\dot\omega = T_m-T_e-D(\omega-1)
-\]
+\textbf{Synchronous Generator (classical)}\$\displaystyle 1mm] States: $\omega,\delta$\\ Parameters: $H,D,E,V,X,\omega_b$\\[1mm] Swing equation: \[ 2H\dot\omega = T_m-T_e-D(\omega-1)$\\
 Rotor angle:
-\[
-\dot\delta = \omega_b(\omega-1)
-\]
+$\displaystyle \dot\delta = \omega_b(\omega-1)$\\
 Electrical power:
-\[
-P_e=\frac{EV}{X}\sin\delta
-\]
+$\displaystyle P_e=\frac{EV}{X}\sin\delta$\\
 };
 \node[port,left=8mm of c] (m) {};
 \node[port,right=8mm of c] (e) {};
