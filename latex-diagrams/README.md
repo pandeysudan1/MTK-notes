@@ -25,6 +25,10 @@ This module is a compact diagram library for:
 | `fcr_prequalification.tex` | Frequency test to power-response evaluation workflow |
 | `two_area_agc.tex` | Two-area AGC with ACE and tie-line feedback |
 | `mtk_component_architecture.tex` | ModelingToolkit component/connector composition and reduction flow |
+| `equation_aware_waterway.tex` | Waterway blocks with governing balances and states |
+| `equation_aware_smib.tex` | SMIB blocks with governing dynamic equations |
+| `component_contract.tex` | Generic physical-law/algebraic/connection contract for an MTK component |
+| `modeling_workflow.tex` | Physics-to-equations-to-MTK-to-simulation workflow |
 
 ## Structure
 
@@ -37,8 +41,13 @@ latex-diagrams/
 │   ├── smib_architecture.tex
 │   ├── fcr_prequalification.tex
 │   ├── two_area_agc.tex
-│   └── mtk_component_architecture.tex
+│   ├── mtk_component_architecture.tex
+│   ├── equation_aware_waterway.tex
+│   ├── equation_aware_smib.tex
+│   ├── component_contract.tex
+│   └── modeling_workflow.tex
 ├── build/
+├── NOTATION.md
 ├── Makefile
 └── README.md
 ```
