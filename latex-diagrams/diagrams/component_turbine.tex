@@ -1,0 +1,38 @@
+\documentclass[tikz,border=7pt]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{positioning}
+\tikzset{
+  box/.style={draw,rectangle,rounded corners=2pt,minimum width=76mm,minimum height=48mm,align=left},
+  port/.style={draw,circle,minimum size=5mm,inner sep=0pt}
+}
+\begin{document}
+\begin{tikzpicture}
+\node[box] (c) {
+\textbf{Hydraulic Turbine}\\[1mm]
+Algebraic variables: $Q_t,\ H_t,\ T_m,\ P_m$\\
+Inputs: $y_g,\ \omega$\\
+Parameters/maps: $\eta,\ f_Q,\ f_T$\\[1mm]
+Flow relation:
+\[
+Q_t = f_Q(H_t,y_g,\omega)
+\]
+Mechanical power:
+\[
+P_m = \rho g Q_t H_t \eta
+\]
+Torque:
+\[
+T_m = \frac{P_m}{\omega}
+\]
+};
+\node[port,left=8mm of c] (h) {};
+\node[port,above=8mm of c] (g) {};
+\node[port,right=8mm of c] (m) {};
+\node[left=2mm of h] {$H_t,Q_t$};
+\node[above=2mm of g] {$y_g$};
+\node[right=2mm of m] {$T_m,P_m$};
+\draw[thick] (h)--(c.west);
+\draw[thick] (g)--(c.north);
+\draw[thick] (c.east)--(m);
+\end{tikzpicture}
+\end{document}
