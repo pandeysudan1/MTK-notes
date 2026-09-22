@@ -29,6 +29,13 @@ This module is a compact diagram library for:
 | `equation_aware_smib.tex` | SMIB blocks with governing dynamic equations |
 | `component_contract.tex` | Generic physical-law/algebraic/connection contract for an MTK component |
 | `modeling_workflow.tex` | Physics-to-equations-to-MTK-to-simulation workflow |
+| `component_reservoir.tex` | Reservoir balance, state, parameters and ports |
+| `component_rigid_pipe.tex` | Pipe momentum balance and friction law |
+| `component_surge_tank.tex` | Surge-tank storage and hydrostatic relation |
+| `component_turbine.tex` | Turbine flow, power and torque relations |
+| `component_generator.tex` | Classical generator swing and power-angle model |
+| `component_governor.tex` | Droop governor and actuator dynamics |
+| `component_atlas.tex` | One-page overview of the full hydropower component chain |
 
 ## Structure
 
@@ -45,7 +52,14 @@ latex-diagrams/
 │   ├── equation_aware_waterway.tex
 │   ├── equation_aware_smib.tex
 │   ├── component_contract.tex
-│   └── modeling_workflow.tex
+│   ├── modeling_workflow.tex
+│   ├── component_reservoir.tex
+│   ├── component_rigid_pipe.tex
+│   ├── component_surge_tank.tex
+│   ├── component_turbine.tex
+│   ├── component_generator.tex
+│   ├── component_governor.tex
+│   └── component_atlas.tex
 ├── build/
 ├── NOTATION.md
 ├── Makefile
