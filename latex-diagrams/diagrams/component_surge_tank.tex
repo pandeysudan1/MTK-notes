@@ -1,0 +1,34 @@
+\documentclass[tikz,border=7pt]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{positioning}
+\tikzset{
+  box/.style={draw,rectangle,rounded corners=2pt,minimum width=72mm,minimum height=46mm,align=left},
+  port/.style={draw,circle,minimum size=5mm,inner sep=0pt}
+}
+\begin{document}
+\begin{tikzpicture}
+\node[box] (c) {
+\textbf{Surge Tank}\\[1mm]
+State: $H_s$ (or $V_s$)\\
+Parameter: $A_s$\\[1mm]
+Mass balance:
+\[
+A_s\dot H_s = Q_{\mathrm{in}}-Q_{\mathrm{out}}
+\]
+Hydrostatic relation:
+\[
+p_s = p_{\mathrm{atm}}+\rho g H_s
+\]
+Optional storage form:
+\[
+\dot V_s = Q_{\mathrm{in}}-Q_{\mathrm{out}}
+\]
+};
+\node[port,left=8mm of c] (in) {};
+\node[port,right=8mm of c] (out) {};
+\node[left=2mm of in] {$H,Q_{\mathrm{in}}$};
+\node[right=2mm of out] {$H_s,Q_{\mathrm{out}}$};
+\draw[thick] (in)--(c.west);
+\draw[thick] (c.east)--(out);
+\end{tikzpicture}
+\end{document}
