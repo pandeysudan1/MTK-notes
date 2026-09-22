@@ -8,21 +8,9 @@
 \begin{document}
 \begin{tikzpicture}
 \node[box] (c) {
-\textbf{Rigid Pipe}\\[1mm]
-State: $Q$\\
-Parameters: $L,\ A,\ D,\ f,\ \rho,\ g$\\[1mm]
-Momentum balance:
-\[
-\rho\frac{L}{A}\dot Q
-=
-\rho g(H_u-H_d)-\Delta p_f(Q)
-\]
+\textbf{Rigid Pipe}\$\displaystyle 1mm] State: $Q$\\ Parameters: $L,\ A,\ D,\ f,\ \rho,\ g$\\[1mm] Momentum balance: \[ \rho\frac{L}{A}\dot Q = \rho g(H_u-H_d)-\Delta p_f(Q)$\\
 Typical friction law:
-\[
-\Delta p_f(Q)
-=
-\frac{fL}{2D}\rho\left(\frac{Q}{A}\right)|\frac{Q}{A}|
-\]
+$\displaystyle \Delta p_f(Q) = \frac{fL}{2D}\rho\left(\frac{Q}{A}\right)|\frac{Q}{A}|$\\
 };
 \node[port,left=8mm of c] (in) {};
 \node[port,right=8mm of c] (out) {};
