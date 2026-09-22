@@ -1,0 +1,31 @@
+name: LaTeX diagrams
+
+on:
+  push:
+    branches:
+      - main
+      - latex-diagrams-project
+    paths:
+      - "latex-diagrams/**"
+      - ".github/workflows/latex-diagrams.yml"
+  pull_request:
+    paths:
+      - "latex-diagrams/**"
+      - ".github/workflows/latex-diagrams.yml"
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install TeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-extra texlive-pictures
+
+      - name: Compile diagrams
+        working-directory: latex-diagrams
+        run: make
