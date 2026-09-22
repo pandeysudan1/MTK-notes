@@ -8,21 +8,11 @@
 \begin{document}
 \begin{tikzpicture}
 \node[box] (c) {
-\textbf{Surge Tank}\\[1mm]
-State: $H_s$ (or $V_s$)\\
-Parameter: $A_s$\\[1mm]
-Mass balance:
-\[
-A_s\dot H_s = Q_{\mathrm{in}}-Q_{\mathrm{out}}
-\]
+\textbf{Surge Tank}\$\displaystyle 1mm] State: $H_s$ (or $V_s$)\\ Parameter: $A_s$\\[1mm] Mass balance: \[ A_s\dot H_s = Q_{\mathrm{in}}-Q_{\mathrm{out}}$\\
 Hydrostatic relation:
-\[
-p_s = p_{\mathrm{atm}}+\rho g H_s
-\]
+$\displaystyle p_s = p_{\mathrm{atm}}+\rho g H_s$\\
 Optional storage form:
-\[
-\dot V_s = Q_{\mathrm{in}}-Q_{\mathrm{out}}
-\]
+$\displaystyle \dot V_s = Q_{\mathrm{in}}-Q_{\mathrm{out}}$\\
 };
 \node[port,left=8mm of c] (in) {};
 \node[port,right=8mm of c] (out) {};
