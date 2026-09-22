@@ -8,22 +8,11 @@
 \begin{document}
 \begin{tikzpicture}
 \node[box] (c) {
-\textbf{Governor / Primary Frequency Control}\\[1mm]
-State example: $x_g$\\
-Inputs: $P_{\mathrm{ref}},\Delta f$\\
-Parameters: $R,T_g,K_i$\\[1mm]
-Droop error:
-\[
-e_g=P_{\mathrm{ref}}-\frac{\Delta f}{R}
-\]
+\textbf{Governor / Primary Frequency Control}\$\displaystyle 1mm] State example: $x_g$\\ Inputs: $P_{\mathrm{ref}},\Delta f$\\ Parameters: $R,T_g,K_i$\\[1mm] Droop error: \[ e_g=P_{\mathrm{ref}}-\frac{\Delta f}{R}$\\
 First-order actuator:
-\[
-T_g\dot x_g = e_g-x_g
-\]
+$\displaystyle T_g\dot x_g = e_g-x_g$\\
 Gate command:
-\[
-y_g=\operatorname{sat}(x_g)
-\]
+$\displaystyle y_g=\operatorname{sat}(x_g)$\\
 };
 \node[port,left=8mm of c] (in) {};
 \node[port,right=8mm of c] (out) {};
