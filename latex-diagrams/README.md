@@ -36,6 +36,10 @@ This module is a compact diagram library for:
 | `component_generator.tex` | Classical generator swing and power-angle model |
 | `component_governor.tex` | Droop governor and actuator dynamics |
 | `component_atlas.tex` | One-page overview of the full hydropower component chain |
+| `library_connector_mapping.tex` | OpenHPLjl vs HydroPowerDynamics.jl connector conventions |
+| `openhpljl_model_code_pair.tex` | OpenHPLjl equations paired with MTK implementation |
+| `openhpljl_turbine_shaft_pair.tex` | Source-aligned turbine-shaft-SMIB generator chain |
+| `hpd_model_code_pair.tex` | HydroPowerDynamics.jl Francis/rotor/AGC equations paired with MTK ports |
 
 ## Structure
 
@@ -62,6 +66,7 @@ latex-diagrams/
 │   └── component_atlas.tex
 ├── build/
 ├── NOTATION.md
+├── SOURCE_MAPPING.md
 ├── Makefile
 └── README.md
 ```
@@ -110,3 +115,15 @@ Next additions should include:
 - FCR-D activation/deactivation sequence
 - causal vs acausal modeling comparison
 - Nordic multi-machine frequency-response architecture
+
+
+## Source alignment
+
+The equation-aware figures are tied to the live Julia implementations. See `SOURCE_MAPPING.md` for the exact OpenHPLjl and HydroPowerDynamics.jl source file behind each diagram.
+
+The two hydraulic connector conventions are intentionally kept distinct:
+
+- OpenHPLjl: head `H` + volumetric flow `Q`
+- HydroPowerDynamics.jl: pressure `p` + mass flow `dm`
+
+Use the conversion `p = p_ref + rho*g*H` and `dm = rho*Q` only when explicitly bridging the libraries.
