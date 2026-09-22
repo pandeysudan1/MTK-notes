@@ -9,21 +9,11 @@
 \begin{document}
 \begin{tikzpicture}
 \node[box] (c) {
-\textbf{Reservoir}\\[1mm]
-State: $V_r$\\
-Parameter(s): $A_r,\ H_{r,0}$\\[1mm]
-Mass balance:
-\[
-\dot V_r = Q_{\mathrm{in}}-Q_{\mathrm{out}}
-\]
+\textbf{Reservoir}\$\displaystyle 1mm] State: $V_r$\\ Parameter(s): $A_r,\ H_{r,0}$\\[1mm] Mass balance: \[ \dot V_r = Q_{\mathrm{in}}-Q_{\mathrm{out}}$\\
 Head relation:
-\[
-H_r = h(V_r)
-\]
+$\displaystyle H_r = h(V_r)$\\
 Typical simplification:
-\[
-H_r \approx H_{r,0}
-\]
+$\displaystyle H_r \approx H_{r,0}$\\
 };
 \node[port,left=8mm of c] (in) {};
 \node[port,right=8mm of c] (out) {};
