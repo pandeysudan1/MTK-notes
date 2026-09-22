@@ -8,22 +8,11 @@
 \begin{document}
 \begin{tikzpicture}
 \node[box] (c) {
-\textbf{Hydraulic Turbine}\\[1mm]
-Algebraic variables: $Q_t,\ H_t,\ T_m,\ P_m$\\
-Inputs: $y_g,\ \omega$\\
-Parameters/maps: $\eta,\ f_Q,\ f_T$\\[1mm]
-Flow relation:
-\[
-Q_t = f_Q(H_t,y_g,\omega)
-\]
+\textbf{Hydraulic Turbine}\$\displaystyle 1mm] Algebraic variables: $Q_t,\ H_t,\ T_m,\ P_m$\\ Inputs: $y_g,\ \omega$\\ Parameters/maps: $\eta,\ f_Q,\ f_T$\\[1mm] Flow relation: \[ Q_t = f_Q(H_t,y_g,\omega)$\\
 Mechanical power:
-\[
-P_m = \rho g Q_t H_t \eta
-\]
+$\displaystyle P_m = \rho g Q_t H_t \eta$\\
 Torque:
-\[
-T_m = \frac{P_m}{\omega}
-\]
+$\displaystyle T_m = \frac{P_m}{\omega}$\\
 };
 \node[port,left=8mm of c] (h) {};
 \node[port,above=8mm of c] (g) {};
