@@ -1,0 +1,18 @@
+\documentclass[tikz,border=7pt]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{positioning,arrows.meta}
+\tikzset{box/.style={draw,rectangle,rounded corners=2pt,minimum width=66mm,minimum height=44mm,align=left},port/.style={draw,circle,minimum size=5mm,inner sep=0pt},arr/.style={-{Latex[length=2mm]},thick}}
+\begin{document}\begin{tikzpicture}
+\node[box] (c) {\textbf{Reservoir}\\[1mm]
+State: $V_r$\\
+Parameter(s): $A_r,\ H_{r,0}$\\[1mm]
+Mass balance:\\
+$\displaystyle \dot V_r = Q_{\mathrm{in}}-Q_{\mathrm{out}}$\\
+Head relation:\\
+$\displaystyle H_r = h(V_r)$\\
+Typical simplification:\\
+$\displaystyle H_r \approx H_{r,0}$};
+\node[port,left=8mm of c] (in) {};\node[port,right=8mm of c] (out) {};
+\node[left=2mm of in] {$Q_{\mathrm{in}}$};\node[right=2mm of out] {$H_r,Q_{\mathrm{out}}$};
+\draw[thick] (in)--(c.west);\draw[thick] (c.east)--(out);
+\end{tikzpicture}\end{document}

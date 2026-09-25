@@ -1,0 +1,16 @@
+\documentclass[tikz,border=7pt]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{positioning,arrows.meta}
+\tikzset{box/.style={draw,rectangle,rounded corners=2pt,minimum width=74mm,minimum height=46mm,align=left},port/.style={draw,circle,minimum size=5mm,inner sep=0pt}}
+\begin{document}\begin{tikzpicture}
+\node[box] (c) {\textbf{Rigid Pipe}\\[1mm]
+State: $Q$\\
+Parameters: $L,\ A,\ D,\ f,\ \rho,\ g$\\[1mm]
+Momentum balance:\\
+$\displaystyle \rho\frac{L}{A}\dot Q=\rho g(H_u-H_d)-\Delta p_f(Q)$\\
+Typical friction law:\\
+$\displaystyle \Delta p_f(Q)=\frac{fL}{2D}\rho\left(\frac{Q}{A}\right)\left|\frac{Q}{A}\right|$};
+\node[port,left=8mm of c] (in) {};\node[port,right=8mm of c] (out) {};
+\node[left=2mm of in] {$H_u,Q$};\node[right=2mm of out] {$H_d,Q$};
+\draw[thick] (in)--(c.west);\draw[thick] (c.east)--(out);
+\end{tikzpicture}\end{document}

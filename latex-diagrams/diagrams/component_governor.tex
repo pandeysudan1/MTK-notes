@@ -1,0 +1,20 @@
+\documentclass[tikz,border=7pt]{standalone}
+\usepackage{amsmath}
+\usetikzlibrary{positioning}
+\tikzset{box/.style={draw,rectangle,rounded corners=2pt,minimum width=82mm,minimum height=52mm,align=left},port/.style={draw,circle,minimum size=5mm,inner sep=0pt}}
+\begin{document}\begin{tikzpicture}
+\node[box] (c) {\textbf{Governor / Primary Frequency Control}\\[1mm]
+State example: $x_g$\\
+Inputs: $P_{\mathrm{ref}},\Delta f$\\
+Parameters: $R,T_g,K_i$\\[1mm]
+Droop error:\\
+$\displaystyle e_g=P_{\mathrm{ref}}-\frac{\Delta f}{R}$\\
+First-order actuator:\\
+$\displaystyle T_g\dot x_g = e_g-x_g$\\
+Gate command:\\
+$\displaystyle y_g=\operatorname{sat}(x_g)$};
+\node[port,left=8mm of c] (in) {};\node[port,right=8mm of c] (out) {};
+\node[left=2mm of in,align=right] {$P_{\mathrm{ref}}$\\$\Delta f$};
+\node[right=2mm of out] {$y_g$};
+\draw[thick] (in)--(c.west);\draw[thick] (c.east)--(out);
+\end{tikzpicture}\end{document}
