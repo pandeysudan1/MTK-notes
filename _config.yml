@@ -1,0 +1,9 @@
+title: MTK Notes
+description: Dynamic modeling, nonlinear systems, ModelingToolkit.jl, and power-system notes
+url: "https://pandeysudan1.github.io"
+baseurl: "/MTK-notes"
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+future: true
+exclude:
+  - simple_julia_test.jl
